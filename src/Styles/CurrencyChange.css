@@ -1,0 +1,90 @@
+.currency-change-wrapper {
+    padding: 20px;
+    padding-top: 0;
+    background-color: transparent;
+    border-radius: 12px;
+    overflow-x: auto;
+    max-height: 600px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .currency-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    font-weight: bold;
+    background-color: transparent;
+  }
+  
+  .currency-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #222531;
+    z-index: 2;
+    border-bottom: 1px solid #222531;
+  }
+  
+  
+  .currency-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+  .currency-table th, .currency-table td {
+    padding: 20px 16px;
+    text-align: right;
+    border-bottom: 2px solid #222531;
+  }
+  
+  .currency-table th:first-child,
+  .currency-table td:first-child {
+    text-align: left;
+  }
+  
+  .currency-table th:nth-child(2),
+  .currency-table td:nth-child(2) {
+    text-align: left;
+    font-weight: 600;
+  }
+  
+  .currency-table tbody tr:hover {
+    background-color:#222531;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .currency-table td {
+    vertical-align: middle;
+  }
+  
+  .green {
+    color: #16c784;
+    font-weight: 500;
+  }
+  
+  .red {
+    color: #ea3943;
+    font-weight: 500;
+  }
+  
+  .sparkline-cell {
+    padding: 5px;
+    text-align: center;
+  }
+  
+  .sparklines-line {
+    stroke-width: 2;
+  }
+  
+  .sparklines .sparklines-line {
+    stroke-linejoin: round;
+  }
+  
+  .currency-change-wrapper {
+    margin: 20px;
+    overflow-x: auto;
+  }
