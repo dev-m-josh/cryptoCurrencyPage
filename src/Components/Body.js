@@ -1,27 +1,28 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faCaretUp,
-  faFire,
-  faCoins,
-  faChartLine,
+import {
   faArrowTrendUp,
-  faLeaf,
-  faEye,
-  faFilter,
-  faRecycle,
-  faChartBar,
-  faColumns, 
-  faClock,
   faCaretDown,
+  faCaretUp,
+  faChartBar,
+  faChartLine,
   faCircleCheck,
+  faClock,
+  faCoins,
+  faColumns,
+  faEye,
+  faFaceSmile,
+  faFilter,
+  faFire,
+  faLeaf,
   faMessage,
-  faRepeat,
-  faFaceSmile} from '@fortawesome/free-solid-svg-icons';
+  faRecycle,
+  faRepeat
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { Sparklines, SparklinesLine } from 'react-sparklines';
 import '../Styles/Body.css';
 import myData from '../data/MOCK_DATA.json';
-import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 export default function Body() {
   const coin = myData[10];
@@ -191,7 +192,7 @@ export default function Body() {
             </table>
           </div>
 
-          {/* <div className="coin-stats-container">
+          <div className="coin-stats-container">
             <div className="coin-stat-card">
               <h3>
                 Market Cap <button>{'>'}</button>
@@ -217,7 +218,7 @@ export default function Body() {
                 <SparklinesLine color={lineColor} />
               </Sparklines>
             </div>
-          </div> */}
+          </div>
 
           <div className='news'>
             <div className='news-card'>
