@@ -12,13 +12,21 @@ import {
   faRecycle,
   faChartBar,
   faColumns, 
-  faClock} from '@fortawesome/free-solid-svg-icons';
+  faClock,
+  faCaretDown,
+  faCircleCheck,
+  faMessage,
+  faRepeat,
+  faFaceSmile} from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import '../Styles/Body.css';
-import myData from '../data/MOCK_DATA.json'
+import myData from '../data/MOCK_DATA.json';
+import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 export default function Body() {
-  console.log(myData[0])
+  const coin = myData[10];
+  const coin2 = myData[1];
+  
   const top5CirculatingSupply = [...myData]
   .sort((a, b) => b.circulating_supply - a.circulating_supply)
   .slice(0, 5);
@@ -78,6 +86,16 @@ export default function Body() {
     checkScrollButtons();
   }, []);
 
+  const [activeIcon, setActiveIcon] = useState('clock'); 
+
+  const handleIconClick = (icon) => {
+    setActiveIcon(icon);
+  };
+
+
+  const lineColor = parseFloat(coin.change_7d_percent) >= 0 ? "#16c784" : "#ea3943";
+  const lineColor2 = parseFloat(coin2.change_7d_percent) >= 0 ? "#16c784" : "#ea3943";
+
   return (
     
     <div className='hero-section'>
@@ -88,29 +106,150 @@ export default function Body() {
         </div>
 
         <div className="cards">
-  <div className="trending-coins">
-    <div className="trending-header">
-      <h3>Most Circulating Supply<button className="navigate-btn">{">"}</button></h3>
-      <div className="trending-icons">
-        <FontAwesomeIcon icon={faFire} className="icon fire-icon" />
-        <FontAwesomeIcon icon={faClock} className="icon clock-icon" />
-        <FontAwesomeIcon icon={faEye} className="icon eye-icon" />
-      </div>
-    </div>
+          <div className="trending-coins">
+            <div className="trending-header">
+              <h3>Most Circulating Supply<button className="navigate-btn">{">"}</button></h3>
+              <div className="trending-icons">
+                <FontAwesomeIcon
+                  icon={faFire}
+                  className={`icon fire-icon ${activeIcon === 'fire' ? 'active' : ''}`}
+                  onClick={() => handleIconClick('fire')}
+                />
+                <FontAwesomeIcon
+                  icon={faClock}
+                  className={`icon clock-icon ${activeIcon === 'clock' ? 'active' : ''}`}
+                  onClick={() => handleIconClick('clock')}
+                />
+                <FontAwesomeIcon
+                  icon={faEye}
+                  className={`icon eye-icon ${activeIcon === 'eye' ? 'active' : ''}`}
+                  onClick={() => handleIconClick('eye')}
+                />
+              </div>
+            </div>
 
-    <div className="top-supply-list">
-      {top5CirculatingSupply.map((coin, index) => (
-        <div key={index} className="supply-item">
-          <p>{index + 1}</p>
-          <h3>{coin.crypto_currency}</h3>
-          <strong>${coin.circulating_supply.toLocaleString()}</strong>
-          <label>{coin.blockchain}</label>
+            <table className="supply-table">
+              <tbody>
+
+              {top5CirculatingSupply.map((coin, index) => {
+                const isPriceIncreasing = coin.last_7_days[6] > coin.last_7_days[0];
+                const lineColor = isPriceIncreasing ? "#00B386" : "#FF3B30";
+    
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{coin.crypto_currency}</td>
+                    <td>${coin.circulating_supply.toLocaleString()}</td>
+                    <td className="sparkline-cell">
+                      <Sparklines data={coin.last_7_days} width={100} height={30}>
+                        <SparklinesLine color={lineColor} />
+                      </Sparklines>
+                    </td>
+                  </tr>
+                );
+              })}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="trending-coins">
+            <div className="trending-header">
+              <h3>Most Circulating Supply<button className="navigate-btn">{">"}</button></h3>
+              <div className="trending-icons">
+                <FontAwesomeIcon
+                  icon={faFire}
+                  className={`icon fire-icon ${activeIcon === 'fire' ? 'active' : ''}`}
+                  onClick={() => handleIconClick('fire')}
+                />
+                <FontAwesomeIcon
+                  icon={faClock}
+                  className={`icon clock-icon ${activeIcon === 'clock' ? 'active' : ''}`}
+                  onClick={() => handleIconClick('clock')}
+                />
+                <FontAwesomeIcon
+                  icon={faEye}
+                  className={`icon eye-icon ${activeIcon === 'eye' ? 'active' : ''}`}
+                  onClick={() => handleIconClick('eye')}
+                />
+              </div>
+            </div>
+
+            <table className="supply-table">
+              <tbody>
+                {top5CirculatingSupply.map((coin, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{coin.crypto_currency}</td>
+                    <td>${coin.circulating_supply.toLocaleString()}</td>
+                    <td className={coin.change_7d_percent >= 0 ? 'green' : 'red'}>
+                      <FontAwesomeIcon icon={coin.change_7d_percent >= 0 ? faCaretUp : faCaretDown} />
+                      {coin.change_7d_percent.toFixed(2)}%
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* <div className="coin-stats-container">
+            <div className="coin-stat-card">
+              <h3>
+                Market Cap <button>{'>'}</button>
+              </h3>
+              <h2>${coin.price_usd}</h2>
+              <h4 className="green">
+                <FontAwesomeIcon icon={faCaretUp} /> {coin.change_30d_percent}%
+              </h4>
+              <Sparklines data={coin2.last_7_days.map(Number)}   width={100} height={30}>
+                <SparklinesLine color={lineColor2} />
+              </Sparklines>
+            </div>
+
+            <div className="coin-stat-card">
+              <h3>
+                CMC100 <button>{'>'}</button>
+              </h3>
+              <h2>${coin.all_time_low_usd}</h2>
+              <h4 className="red">
+                <FontAwesomeIcon icon={faCaretDown} /> {coin.change_7d_percent}%
+              </h4>
+              <Sparklines data={coin.last_7_days.map(Number)}   width={100} height={30}>
+                <SparklinesLine color={lineColor} />
+              </Sparklines>
+            </div>
+          </div> */}
+
+          <div className='news'>
+            <div className='news-card'>
+              <div className='news-card-header'>
+                <img src='https://s3.coinmarketcap.com/static-gravity/image/7f20f190ae67489f91bf77faf7af6775.jpg' alt='coins'/>
+                <h3>CryptoMaven <FontAwesomeIcon icon={faCircleCheck} style={{ color: '#3b82f6' }}/> .</h3>
+                <p>10 hours</p>
+              </div>
+              <p>
+                A new #Bitcoin giant just stepped onto the scene, Twenty One Capital is launching with over 42,000 BTC$BTC ($3.6B), backed by Tether, SoftBank, and led by Strike’s Jack Mallers..
+              </p>
+              <label>
+                <FontAwesomeIcon icon={faMessage}/> 5 .
+                <FontAwesomeIcon icon={faRepeat}/> 0 
+                <FontAwesomeIcon icon={faFaceSmile}/>
+              </label>
+            </div>
+            <div className='news-card'>
+              <div className='news-card-header'>
+                <img src='https://s3.coinmarketcap.com/static-gravity/image/63d79c60c56546e0889ab0d710a1f08d.jpg' alt='coins'/>
+                <h3>CryptoMaven <FontAwesomeIcon icon={faCircleCheck} style={{ color: '#3b82f6' }}/> .</h3>
+                <p>10 hours</p>
+              </div>
+              <div>
+                <img src='https://academy-public.coinmarketcap.com/srd-optimized-uploads/0c3d095e45d14d35bad0c5a9964f5b00.png' alt='hint-bar'/>
+                <p>
+                Federal Reserve Officials Hint at 2025 Rate Cuts
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-</div>
-
 
         <div className="nav-container">
             {canScrollLeft && (
