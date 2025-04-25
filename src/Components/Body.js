@@ -26,11 +26,55 @@ import myData from '../data/MOCK_DATA.json';
 
 export default function Body() {
   const coin = myData[10];
+  function generateLast7Days(coin) {
+    const dailyChangePercent = coin.change_7d_percent / 7;
+    let price = coin.price_usd;
+    const last_7_days = [parseFloat(price.toFixed(2))];
+  
+    for (let i = 1; i < 7; i++) {
+      price = price * (1 + dailyChangePercent / 100);
+      last_7_days.push(parseFloat(price.toFixed(2)));
+    }
+  
+    coin.last_7_days = last_7_days;
+  }
+  generateLast7Days(coin);
+
+  /*********************/
   const coin2 = myData[1];
+  function generateLast7Days2(coin) {
+    const dailyChangePercent = coin.change_7d_percent / 7;
+    let price = coin.price_usd;
+    const last_7_days = [parseFloat(price.toFixed(2))];
+  
+    for (let i = 1; i < 7; i++) {
+      price = price * (1 + dailyChangePercent / 100);
+      last_7_days.push(parseFloat(price.toFixed(2)));
+    }
+  
+    coin2.last_7_days = last_7_days;
+  }
+  generateLast7Days2(coin2);  
   
   const top5CirculatingSupply = [...myData]
   .sort((a, b) => b.circulating_supply - a.circulating_supply)
   .slice(0, 5);
+
+  top5CirculatingSupply.forEach((coin) => {
+  
+      const dailyChangePercent = coin.change_7d_percent / 7; 
+  
+      let price = coin.price_usd;
+      const last_7_days = [price];  
+      for (let i = 1; i < 7; i++) {
+        price = price * (1 + dailyChangePercent / 100); 
+        last_7_days.push(price.toFixed(2)); 
+      }
+  
+      coin.last_7_days = last_7_days;
+    });
+
+  console.log(top5CirculatingSupply)
 
   const navItems = [
     { path: "/all-crypto", label: "All Crypto" },
