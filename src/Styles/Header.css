@@ -29,14 +29,12 @@
     justify-content: start;
   }
   
-  /* Logo */
   .logo {
     display: flex;
     align-items: center;
     margin-left: -20px;
   }
   
-  /* Navigation Menu */
   .nav-links {
     display: flex;
     align-items: center;
@@ -60,8 +58,6 @@
     color: blue;
   }
   
-  
-  /* Profile and Search */
   .header-profile {
     display: flex;
     align-items: center;
@@ -87,7 +83,6 @@
     background-color: #222531;
   }
   
-  /* Search */
   .search-input {
     display: flex;
     align-items: center;
@@ -131,7 +126,6 @@
     cursor: pointer;
   }
   
-  /* Login Button */
   .login-btn {
     padding: 8px 18px;
     background-color: blue;
@@ -149,7 +143,6 @@
     background-color: #486DFB;
   }
   
-  /* Menu Icons (Bars + User) */
   .menu-icons {
     display: flex;
     gap: 5px;
@@ -162,8 +155,6 @@
     color: grey;
   }
   
-
-  /* Header Bottom Bar */
   .header-bottom {
     width: 100%;
     display: flex;

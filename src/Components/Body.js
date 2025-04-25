@@ -61,21 +61,21 @@ export default function Body() {
   .slice(0, 5);
 
   top5CirculatingSupply.forEach((coin) => {
+    const dailyChangePercent = coin.change_7d_percent / 7;
   
-      const dailyChangePercent = coin.change_7d_percent / 7; 
+    let price = coin.price_usd;
+    const last_7_days = [parseFloat(price.toFixed(2))];
   
-      let price = coin.price_usd;
-      const last_7_days = [price];  
-      for (let i = 1; i < 7; i++) {
-        price = price * (1 + dailyChangePercent / 100); 
-        last_7_days.push(price.toFixed(2)); 
-      }
+    for (let i = 1; i < 7; i++) {
+      price = price * (1 + dailyChangePercent / 100);
+      last_7_days.push(parseFloat(price.toFixed(2)));
+    }
   
-      coin.last_7_days = last_7_days;
-    });
+    coin.last_7_days = last_7_days; 
+    console.log('coin.last_7_days', coin.last_7_days);
 
-  console.log(top5CirculatingSupply)
-
+  });
+  
   const navItems = [
     { path: "/all-crypto", label: "All Crypto" },
     { path: "/nfts", label: "NFTs" },
@@ -105,7 +105,6 @@ export default function Body() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // Function to check if scrolling is possible
   const checkScrollButtons = () => {
     const nav = navRef.current;
     if (nav) {
@@ -115,7 +114,6 @@ export default function Body() {
     }
   };
 
-  // Scroll function to move left or right
   const scrollNav = (direction) => {
     const scrollAmount = 200;
     if (navRef.current) {
@@ -126,7 +124,6 @@ export default function Body() {
     }
   };
 
-  // Initial check and whenever scroll position changes
   useEffect(() => {
     checkScrollButtons();
   }, []);
@@ -144,7 +141,6 @@ export default function Body() {
   return (
     
     <div className='hero-section'>
-      
         <div className='heading'>
             <h1>Today's Cryptocurrency Prices by Market Cap</h1>
             <p>The global crypto market cap is <strong>$2.94T</strong>, a<strong style={{color:'#00B386'}}> <FontAwesomeIcon icon={faCaretUp} /> 4.87%</strong> increase over the last day. <label>Read More</label></p>
@@ -178,28 +174,32 @@ export default function Body() {
 
               {top5CirculatingSupply.map((coin, index) => {
                 const isPriceIncreasing = coin.last_7_days[6] > coin.last_7_days[0];
+
                 const lineColor = isPriceIncreasing ? "#00B386" : "#FF3B30";
-    
+
                 return (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{coin.crypto_currency}</td>
-                    <td>${coin.circulating_supply.toLocaleString()}</td>
+                    <td>${coin.price_usd.toLocaleString()}</td>
                     <td className="sparkline-cell">
-                      <Sparklines data={coin.last_7_days} width={100} height={30}>
-                        <SparklinesLine color={lineColor} />
-                      </Sparklines>
+                      {coin.last_7_days && (
+                        <Sparklines data={coin.last_7_days} width={100} height={30}>
+                          <SparklinesLine color={lineColor} />
+                        </Sparklines>
+                      )}
                     </td>
                   </tr>
                 );
               })}
+
               </tbody>
             </table>
           </div>
 
           <div className="trending-coins">
             <div className="trending-header">
-              <h3>Most Circulating Supply<button className="navigate-btn">{">"}</button></h3>
+              <h3>Percentage Change<button className="navigate-btn">{">"}</button></h3>
               <div className="trending-icons">
                 <FontAwesomeIcon
                   icon={faFire}
@@ -262,6 +262,32 @@ export default function Body() {
                 <SparklinesLine color={lineColor} />
               </Sparklines>
             </div>
+
+            <div className="coin-stat-card">
+              <h3>
+                CMC100 <button>{'>'}</button>
+              </h3>
+              <h2>${coin.all_time_low_usd}</h2>
+              <h4 className="red">
+                <FontAwesomeIcon icon={faCaretDown} /> {coin.change_7d_percent}%
+              </h4>
+              <Sparklines data={coin.last_7_days.map(Number)}   width={100} height={30}>
+                <SparklinesLine color={lineColor} />
+              </Sparklines>
+            </div>
+
+            <div className="coin-stat-card">
+              <h3>
+                Market Cap <button>{'>'}</button>
+              </h3>
+              <h2>${coin.price_usd}</h2>
+              <h4 className="green">
+                <FontAwesomeIcon icon={faCaretUp} /> {coin.change_30d_percent}%
+              </h4>
+              <Sparklines data={coin2.last_7_days.map(Number)}   width={100} height={30}>
+                <SparklinesLine color={lineColor2} />
+              </Sparklines>
+            </div>
           </div>
 
           <div className='news'>
@@ -272,7 +298,7 @@ export default function Body() {
                 <p>10 hours</p>
               </div>
               <p>
-                A new #Bitcoin giant just stepped onto the scene, Twenty One Capital is launching with over 42,000 BTC$BTC ($3.6B), backed by Tether, SoftBank, and led by Strike’s Jack Mallers..
+                A new #Bitcoin giant just stepped onto the scene, Twenty One Capital is launching with...
               </p>
               <label>
                 <FontAwesomeIcon icon={faMessage}/> 5 .
@@ -284,9 +310,9 @@ export default function Body() {
               <div className='news-card-header'>
                 <img src='https://s3.coinmarketcap.com/static-gravity/image/63d79c60c56546e0889ab0d710a1f08d.jpg' alt='coins'/>
                 <h3>CryptoMaven <FontAwesomeIcon icon={faCircleCheck} style={{ color: '#3b82f6' }}/> .</h3>
-                <p>10 hours</p>
+                <p>8 hours</p>
               </div>
-              <div>
+              <div className='prediction'>
                 <img src='https://academy-public.coinmarketcap.com/srd-optimized-uploads/0c3d095e45d14d35bad0c5a9964f5b00.png' alt='hint-bar'/>
                 <p>
                 Federal Reserve Officials Hint at 2025 Rate Cuts
@@ -295,7 +321,7 @@ export default function Body() {
             </div>
           </div>
         </div>
-
+ 
         <div className="nav-container">
             {canScrollLeft && (
               <button className="nav-scroll-btn left" onClick={() => scrollNav('left')}>

@@ -1,6 +1,6 @@
 .hero-section{
     width: 100%;
-    padding: 20px;
+    padding: 10px;
     padding-bottom: 0;
 }
 
@@ -77,7 +77,6 @@
   gap: 15px;
 }
 
-/* Navigation Item */
 .nav-item {
   display: flex;
   align-items: center;
@@ -85,7 +84,6 @@
   position: relative;
 }
 
-/* Icon inside the navigation item */
 .nav-item__icon {
   margin-right: 8px;
   font-size: 18px;
@@ -98,7 +96,6 @@
   color: #16C60C;
 }
 
-/* Link styling */
 .nav-item__link {
   font-size: 14px;
   color: grey;
@@ -111,7 +108,6 @@
   transition: all 0.3s ease;
 }
 
-/* Active link styling */
 .nav-item__link--active {
   background-color: transparent; 
   color: white;
@@ -224,7 +220,6 @@
   justify-content: space-between;
 }
 
-/* Individual filter options */
 .filter-option {
   display: flex;
   align-items: center;
@@ -248,7 +243,6 @@
   margin: 0;
 }
 
-/* Dropdown container */
 .dropdown-container select {
   padding: 8px 15px;
   font-size: 12px;
@@ -262,7 +256,6 @@
   font-weight: bold;
 }
 
-/* Active dropdown styling */
 .dropdown-container select option {
   padding: 10px;
   font-size: 14px;
@@ -271,10 +264,10 @@
 .cards{
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   margin-top: 20px;
-  gap: 30px;
+  gap: 10px;
 }
 
 .trending-coins {
@@ -283,6 +276,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   background-color: #222531;
   cursor: pointer;
+  min-height: 100%;
 }
 
 .trending-header {
@@ -335,10 +329,224 @@
   margin-top: 10px;
 }
 
+.supply-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  color: white;
+  table-layout: fixed;
+}
 
+.supply-table td {
+  padding: 8px 12px;
+  text-align: left;
+}
 
+.supply-table td:first-child {
+  font-weight: bold;
+  width: 20px;
+}
 
+.supply-table td:last-child {
+  text-align: center;
+}
 
+.supply-table td:nth-child(2) {
+  font-weight: 500;
+  font-size: 16px;
+}
 
+.supply-table td:nth-child(3) {
+  font-weight: 500;
+}
+
+.supply-table td:nth-child(4) {
+  text-align: center;
+}
+
+.sparkline-cell {
+  padding: 0;
+}
+
+.supply-table .green {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #16c784;
+}
+
+.supply-table .red {
+  color: #ea3943;
+}
+
+.sparkline-cell {
+  min-width: 100px;
+  height: 30px;
+  padding: 0;
+}
+
+.coin-stats-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.coin-stat-card {
+  background-color: #222531;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  cursor: pointer;
+  min-width: max-content;
+}
+
+.coin-stat-card h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.coin-stat-card h3 button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #A1A7BB;
+  cursor: pointer;
+}
+
+.coin-stat-card h3 button:hover {
+  color: #8096f8;
+}
+
+.coin-stat-card h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #fff;
+}
+
+.coin-stat-card h4 {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.coin-stat-card .green {
+  color: #16c784;
+}
+
+.coin-stat-card .red {
+  color: #ea3943;
+}
+
+.coin-stat-card .green .faCaretUp,
+.coin-stat-card .red .faCaretDown {
+  margin-right: 8px;
+}
+
+.coin-stat-card .sparkline-cell {
+  width: 100%;
+  height: 30px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.news {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap; 
+  gap: 20px;
+  justify-content: space-between; 
+  width: 100%;
+}
+
+.news-card {
+  background-color: #212430;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.news-card-header {
+  display: flex;
+  align-items: center;
+}
+
+.news-card-header img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.prediction{
+  min-width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.prediction img{
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.news-card-header h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+}
+
+.news-card-header p {
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+}
+
+.news-card p {
+  font-size: 14px;
+  color: #fff;
+  line-height: 1.6;
+  margin: 5px 0;
+}
+
+.news-card-header p {
+  font-size: 14px;
+  font-weight: bold;
+  color: #888;
+  line-height: 1.6;
+  margin: 0;
+  margin-left: 3px;
+}
+
+.news-card label {
+  font-size: 14px;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.news-card label .fa-icon {
+  font-size: 16px;
+}
 
 
