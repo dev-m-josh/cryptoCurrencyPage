@@ -263,9 +263,8 @@
 
 .cards{
   width: 100%;
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   margin-top: 20px;
   gap: 10px;
 }
@@ -462,15 +461,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .news {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap; 
-  gap: 20px;
+  gap: 10px;
   justify-content: space-between; 
   width: 100%;
+  align-items: stretch;
 }
 
 .news-card {
@@ -479,6 +479,7 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  flex: 1;
   justify-content: space-between;
 }
 
@@ -502,8 +503,8 @@
 }
 
 .prediction img{
-  width: 40px;
-  height: 40px;
+  width: 70px;
+  height: 70px;
   border-radius: 5px;
   margin-top: 10px;
 }
